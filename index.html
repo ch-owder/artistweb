@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+   
+    
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAOS</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>KAOS</h1>
+        <nav>
+            <ul>
+                <li > <button> <a href="index.html">INÍCIO</a></li>  </button>
+                <li > <button> <a href="about.html">SOBRE</a></li> </button>
+                <li > <button> <a href="https://encurtador.com.br/Ykl2y" Target="_blank">INSTAGRAM</a></li> </button>
+                <li>  <button> <a href="https://encurtador.com.br/KI6Qu" target="_blank">SPOTIFY</a></li> </button>
+                <li>  <button> <a href="https://on.soundcloud.com/Q5J1BociqQni746m9" target="_blank">SOUNDCLOUD</a></li> </button>
+           
+                
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <section>
+            <h2>HORA DO PESADELO!</h2>
+            <h3>👇🏿👇🏿👇🏿👇🏿</h3>
+            <div class="audio-player">
+                <audio id="player"; src="HORA DO PESADELO.mp3"metadata"></audio>
+                
+                <div class="controls">
+                    <button id="play-pause-button">Play</button>
+                    <span id="current-time">0:00</span> / <span id="duration">0:00</span>
+                </div>
+                
+                <input type="range" id="seek-bar" value="0" max="100">
+                
+                <div class="volume-control">
+                    <label for="volume-bar">Volume:</label>
+                    <input type="range" id="volume-bar" min="0" max="1" step="0.01" value="1">
+                </div>
+            </div>
+            
+            
+        </section>
+    </main>
+    
+    </main>
+    
+    <footer>
+        <p>&copy; 2024 Chowder, 042. Todos os direitos reservados.</p>
+    </footer>
+    <script>
+        const player = document.getElementById('player');
+        const playPauseButton = document.getElementById('play-pause-button');
+        const seekBar = document.getElementById('seek-bar');
+        const volumeBar = document.getElementById('volume-bar');
+        const currentTimeSpan = document.getElementById('current-time');
+        const durationSpan = document.getElementById('duration');
+    
+        playPauseButton.addEventListener('click', () => {
+            if (player.paused) {
+                player.play();
+                playPauseButton.textContent = 'Pause';
+            } else {
+                player.pause();
+                playPauseButton.textContent = 'Play';
+            }
+        });
+    
+        player.addEventListener('timeupdate', () => {
+            const currentTime = player.currentTime;
+            const duration = player.duration;
+            
+            seekBar.value = (currentTime / duration) * 100;
+            
+            currentTimeSpan.textContent = formatTime(currentTime);
+            durationSpan.textContent = formatTime(duration);
+        });
+    
+        seekBar.addEventListener('input', () => {
+            const seekTime = (seekBar.value / 100) * player.duration;
+            player.currentTime = seekTime;
+        });
+    
+        volumeBar.addEventListener('input', () => {
+            player.volume = volumeBar.value;
+        });
+    
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+    
+        // Carrega a duração do áudio quando os metadados estiverem prontos
+        player.addEventListener('loadedmetadata', () => {
+            durationSpan.textContent = formatTime(player.duration);
+        });
+    </script>
+    
+</body>
+</html>
